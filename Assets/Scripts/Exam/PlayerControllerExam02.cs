@@ -18,8 +18,26 @@ public class PlayerControllerExam02 : MonoBehaviour
     }
 
     // Update is called once per frame
+    
     void Update()
     {
         verticalInput = moveAction.ReadValue<Vector2>().y;
+        transform.Translate(verticalInput * speed * Time.deltaTime * Vector3.left);
+
+        if (transform.position.x < -zRange)
+        {
+            transform.position = new Vector3(-zRange, transform.position.y, transform.position.z);
+        }
+        if (transform.position.x > zRange)
+        {
+            transform.position = new Vector3(zRange, transform.position.y, transform.position.z);
+        }
+        if (shootAction.triggered)
+        {
+            Quaternion Kenlnwza = Quaternion.Euler(0f, 90f, 0f);
+            Instantiate(projectilePrefab, transform.position, Kenlnwza);
+
+        }
     }
 }
+
